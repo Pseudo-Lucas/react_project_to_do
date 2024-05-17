@@ -1,42 +1,53 @@
 import React, { useState, useEffect } from 'react'
 
+let nextId = 0;
+
 const Counter = () => {
-    const [count, setCount] = useState(0);
+    const [todo, setTodo] = useState('');
+    const [todos, setTodos] = useState([])
 
-    const increment = () => {
-        setCount(count + 1  );
-    };
 
-    const decrement = () => {
-        setCount(count - 1)
-    }
+const handleAddTodo = () => {
+    setTodos([...todos,{
+        id: nextId++,
+        todo: todo,
+    }])
+    setTodo('');
+};
 
     return (
         <div>
-            <input type="text" placeholder="Add a task"></input>
-            <input type="button" value="I got this"></input>
+            <h1>To do list.</h1>
+            <input type="text"
+                placeholder='Add a task'
+                value={todo}
+                onChange={e => setTodo(e.target.value)}
+            />
+
+            <button onClick={handleAddTodo}>I got this!</button>
+
             <table>
                 <thead>
                     <tr>
-                        <th>Coluna 1</th>
-                        <th>Contador</th>
-                        <th>Coluna 3</th>
-                        <th>Coluna 4</th>
+                        <th>Status</th>
+                        <th>Task</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td>{count}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {todos.map(todos => (
+                        <tr key={todos.id}>
+                            <td></td>
+                            <td>{todos.todo}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-            <button onClick={increment}>Incrementar</button>
-            <button onClick={decrement}>Decrementar</button>
         </div>
     )
-};
-
+}
 export default Counter 
