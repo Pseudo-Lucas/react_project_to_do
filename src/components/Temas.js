@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import Lista from './Lista.js';
+import Lista from './Lista';
+import { TodoProvider } from './TodoContext';
 
 function Temas() {
   const [theme, setTheme] = useState('light');
@@ -14,13 +15,15 @@ function Temas() {
   };
 
   return (
-    <div className={`App ${theme}`}>
-      <header className="App-header">
-        <button onClick={setLightTheme}>Tema Claro</button>
-        <button onClick={setDarkTheme}>Tema Escuro</button>
-      </header>
-      <Lista/>
-    </div>
+    <TodoProvider>
+      <div className={`App ${theme}`}>
+        <header className="App-header header-buttons">
+          <button onClick={setLightTheme}>Light</button>
+          <button onClick={setDarkTheme}>Dark</button>
+        </header>
+        <Lista />
+      </div>
+    </TodoProvider>
   );
 }
 
